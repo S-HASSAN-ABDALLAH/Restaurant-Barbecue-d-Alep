@@ -1,11 +1,11 @@
 <?php
 require_once 'config/database.php';
 
-// جلب الأقسام مرتبة
+
 $stmt = $pdo->query("SELECT * FROM categories ORDER BY display_order ASC");
 $categories = $stmt->fetchAll();
 
-// جلب كل الأطباق
+
 $stmt = $pdo->query("SELECT * FROM items ORDER BY id_categorie, display_order ASC");
 $allItems = $stmt->fetchAll();
 ?>
@@ -92,9 +92,7 @@ $allItems = $stmt->fetchAll();
 <?php foreach ($categories as $cat): ?>
 
     <?php if (strtoupper($cat['name']) === 'DESSERTS & BOISSONS'): ?>
-    <!-- ========================================
-         SECTION DESSERTS & BOISSONS (تصميم خاص)
-         ======================================== -->
+    
     <section class="menu-section" id="category-<?= $cat['id'] ?>">
         <div class="container">
             <div class="category-title text-center">
@@ -149,9 +147,7 @@ $allItems = $stmt->fetchAll();
     </section>
 
     <?php else: ?>
-    <!-- ========================================
-         SECTION NORMALE (تصميم عادي)
-         ======================================== -->
+   
     <section class="menu-section" id="category-<?= $cat['id'] ?>">
         <div class="container">
             <div class="category-title text-center">
@@ -261,27 +257,24 @@ window.addEventListener('scroll', function() {
     <script>
 // Smooth scroll to section after page load
 (function() {
-    // إذا يوجد hash في URL
+   
     if (window.location.hash) {
-        // احفظي الـ hash
+       
         const hash = window.location.hash;
         
-        // امسحي الـ hash مؤقتاً لمنع القفز التلقائي
+        
         history.replaceState(null, null, window.location.pathname);
         
-        // ارجعي للأعلى فوراً
         window.scrollTo(0, 0);
         
-        // بعد تحميل الصفحة
         window.addEventListener('load', function() {
-            // انتظري لرؤية Hero
             setTimeout(function() {
                 const target = document.querySelector(hash);
                 if (target) {
                     const targetPosition = target.offsetTop;
                     const startPosition = window.pageYOffset;
                     const distance = targetPosition - startPosition;
-                    const duration = 3000; // 3 ثواني
+                    const duration = 3000; 
                     let start = null;
                     
                     function animation(currentTime) {
@@ -298,14 +291,14 @@ window.addEventListener('scroll', function() {
                         if (timeElapsed < duration) {
                             requestAnimationFrame(animation);
                         } else {
-                            // أعيدي الـ hash للـ URL
+                            
                             history.replaceState(null, null, hash);
                         }
                     }
                     
                     requestAnimationFrame(animation);
                 }
-            }, 2000); // 2 ثواني انتظار
+            }, 2000); 
         });
     }
 })();
