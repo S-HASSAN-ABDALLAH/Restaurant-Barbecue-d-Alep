@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newPassword = $_POST['new_password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
     
-    // التحقق من الحقول
     if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
         $error = 'Veuillez remplir tous les champs.';
     } 
@@ -22,16 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Le mot de passe doit contenir au moins 6 caractères.';
     }
     else {
-        // جلب كلمة المرور الحالية من قاعدة البيانات
         $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
         $stmt->execute([$_SESSION['admin_id']]);
         $user = $stmt->fetch();
         
-        // التحقق من كلمة المرور الحالية
         if (!password_verify($currentPassword, $user['password'])) {
             $error = 'Mot de passe actuel incorrect.';
         } else {
-            // تشفير وحفظ كلمة المرور الجديدة
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
             $stmt->execute([$hashedPassword, $_SESSION['admin_id']]);
