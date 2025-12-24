@@ -4,7 +4,6 @@ require_once __DIR__ . '/include/auth.php';
 
 
 
-// إذا كان مسجل دخوله، أرسله للوحة التحكم
 if (isLoggedIn()) {
     header('Location: dashboard.php');
     exit;
@@ -12,7 +11,6 @@ if (isLoggedIn()) {
 
 $error = '';
 
-// عند إرسال النموذج
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -126,8 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-login text-dark">Se connecter</button>
         </form>
         
-        <!-- رابط نسيت كلمة المرور -->
-        <div class="forgot-link">
+       <div class="forgot-link">
             <a href="forgot-password.php">Mot de passe oublié?</a>
         </div>
     </div>
