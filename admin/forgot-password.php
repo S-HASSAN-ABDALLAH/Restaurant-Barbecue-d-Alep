@@ -8,7 +8,6 @@ $step = 1; // 1 = email, 2 = question, 3 = new password
 $question = "";
 $email = "";
 
-// Step 1: التحقق من الإيميل
 if (isset($_POST['check_email'])) {
     $email = trim($_POST['email']);
     
@@ -26,7 +25,6 @@ if (isset($_POST['check_email'])) {
     }
 }
 
-// Step 2: التحقق من الجواب
 if (isset($_POST['check_answer'])) {
     $answer = strtolower(trim($_POST['answer']));
     $user_id = $_SESSION['reset_user_id'] ?? 0;
@@ -45,7 +43,6 @@ if (isset($_POST['check_answer'])) {
     }
 }
 
-// Step 3: تغيير كلمة المرور
 if (isset($_POST['reset_password'])) {
     if (!isset($_SESSION['reset_verified']) || !$_SESSION['reset_verified']) {
         $error = "Session expirée. Veuillez recommencer.";
@@ -66,7 +63,6 @@ if (isset($_POST['reset_password'])) {
             $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
             $stmt->execute([$hashed_password, $user_id]);
             
-            // مسح الـ session
             unset($_SESSION['reset_user_id']);
             unset($_SESSION['reset_email']);
             unset($_SESSION['reset_verified']);
@@ -154,7 +150,6 @@ if (isset($_POST['reset_password'])) {
         <?php else: ?>
         
             <?php if ($step === 1): ?>
-            <!-- Step 1: الإيميل -->
             <p class="step-indicator">Étape 1/3 : Entrez votre email</p>
             <form method="POST">
                 <div class="mb-3">
@@ -167,7 +162,6 @@ if (isset($_POST['reset_password'])) {
             </form>
             
             <?php elseif ($step === 2): ?>
-            <!-- Step 2: السؤال السري -->
             <p class="step-indicator">Étape 2/3 : Répondez à la question de sécurité</p>
             <div class="question-box">
                 <strong>❓ <?= htmlspecialchars($question) ?></strong>
@@ -183,7 +177,6 @@ if (isset($_POST['reset_password'])) {
             </form>
             
             <?php elseif ($step === 3): ?>
-            <!-- Step 3: كلمة مرور جديدة -->
             <p class="step-indicator">Étape 3/3 : Créez un nouveau mot de passe</p>
             <form method="POST">
                 <div class="mb-3">
