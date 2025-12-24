@@ -4,7 +4,7 @@ requireLogin();
 
 require_once(__DIR__ . "/../config/database.php");
 
-// حذف
+
 if (isset($_GET["action"]) && $_GET["action"] === "supprimer" && isset($_GET["id"])) {
     $id = (int) $_GET["id"];
     $stmt = $pdo->prepare("DELETE FROM special_offers WHERE id = ?");
@@ -13,7 +13,6 @@ if (isset($_GET["action"]) && $_GET["action"] === "supprimer" && isset($_GET["id
     exit;
 }
 
-// جلب البيانات
 $stmt = $pdo->query("SELECT * FROM special_offers ORDER BY id ASC");
 $offers = $stmt->fetchAll();
 ?>
