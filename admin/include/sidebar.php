@@ -22,13 +22,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 $currentFolder = basename(dirname($_SERVER['PHP_SELF']));
 ?>
 
-<!-- زر القائمة للموبايل -->
 <div class="mobile-header">
     <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <img src="<?= $baseUrl ?>/assets/images/Logo.webp" alt="Logo" class="mobile-logo">
 </div>
 
-<!-- Overlay للموبايل -->
 <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div class="sidebar" id="sidebar">
