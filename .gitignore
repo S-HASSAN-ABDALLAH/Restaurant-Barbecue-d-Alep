@@ -1,4 +1,3 @@
 uploads/
 config/database.php
-admin/config/database.php
 .env

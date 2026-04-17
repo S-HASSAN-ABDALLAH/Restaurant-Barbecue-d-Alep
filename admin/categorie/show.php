@@ -1,7 +1,7 @@
 <?php 
 require_once "../include/auth.php";  
 requireLogin();    
-require_once(__DIR__ . "/../config/database.php");
+require_once(__DIR__ . "/../../config/database.php");
 
 // Suppression sécurisée via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'supprimer') {

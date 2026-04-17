@@ -1,12 +1,12 @@
 <?php 
 require_once "../include/auth.php";  
 requireLogin();
-require_once(__DIR__ . "/../config/database.php");
+require_once(__DIR__ . "/../../config/database.php");
 
 $erreurs = [];
 
 // Définir le chemin uploads de manière absolue
-define('UPLOAD_DIR', dirname(dirname(__DIR__)) . '/uploads/');
+define('UPLOAD_DIR', __DIR__ . '/../../uploads/');
 define('UPLOAD_URL', '/uploads/');
 
 // Récupérer les catégories
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Si pas d'erreurs, traiter l'upload
             if (empty($erreurs)) {
                 // Générer un nom unique et sécurisé
-                $newFilename = uniqid('plat_', true) . '.' . $ext;
+                $newFilename = $nom . '.' . $ext;
                 $destination = UPLOAD_DIR . $newFilename;
                 
                 // Créer le dossier uploads s'il n'existe pas

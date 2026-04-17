@@ -1,7 +1,7 @@
 <?php
 require_once "../include/auth.php";
 requireLogin();
-require_once(__DIR__ . "/../config/database.php");
+require_once(__DIR__ . "/../../config/database.php");
 
 // ===== MESSAGES FLASH =====
 $flashMessage = $_SESSION['flash_message'] ?? '';
@@ -224,7 +224,7 @@ $csrfToken = generateCsrfToken();
                                 <td><?= $plat["id"] ?></td>
                                 <td>
                                     <?php if (!empty($plat["picture"])): ?>
-                                        <img src="/uploads/<?= htmlspecialchars($plat["picture"]) ?>"
+                                        <img src="../../uploads/<?= htmlspecialchars($plat["picture"]) ?>"
                                              alt="<?= htmlspecialchars($plat["name"]) ?>"
                                              class="dish-image">
                                     <?php else: ?>

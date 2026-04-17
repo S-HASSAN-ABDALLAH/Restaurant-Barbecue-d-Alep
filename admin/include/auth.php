@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once(__DIR__ . "/../config/database.php");
+require_once(__DIR__ . "/../../config/database.php");
 
 // ===== Protection contre les attaques par force brute =====
 function checkLoginAttempts($email) {
@@ -63,48 +63,40 @@ function login($email, $password) {
     
     // Validation de base
     if (empty($email) || empty($password)) {
-        return false;
+        return ['success' => false, 'blocked' => false];
     }
     
     // Vérifier les tentatives de connexion
     if (!checkLoginAttempts($email)) {
-        return false;
+        return ['success' => false, 'blocked' => true];  // ← BLOQUÉ
     }
     
     try {
-        // Recherche de l'utilisateur (requête préparée)
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
         
-        // Vérification du mot de passe avec bcrypt
         if ($user && password_verify($password, $user['password'])) {
-            // CONNEXION RÉUSSIE
-            
-            // Régénérer l'ID de session (protection contre le vol de session)
             session_regenerate_id(true);
             
-            // Enregistrer les informations dans la session
             $_SESSION['admin_logged_in'] = true;
             $_SESSION['admin_id'] = $user['id'];
             $_SESSION['admin_email'] = $user['email'];
             $_SESSION['last_activity'] = time();
             
-            // Réinitialiser les tentatives
             recordLoginAttempt($email, true);
             
-            return true;
+            return ['success' => true, 'blocked' => false];
         }
         
         recordLoginAttempt($email, false);
-        return false;
+        return ['success' => false, 'blocked' => false];
         
     } catch (PDOException $e) {
         error_log("Login error: " . $e->getMessage());
-        return false;
+        return ['success' => false, 'blocked' => false];
     }
 }
-
 // ===== Vérifier si l'utilisateur est connecté =====
 function isLoggedIn() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {

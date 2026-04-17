@@ -2,7 +2,7 @@
 /* Gestion sécurisée de la suppression de plats*/
 require_once "../include/auth.php";
 requireLogin();
-require_once(__DIR__ . "/../config/database.php");
+require_once(__DIR__ . "/../../config/database.php");
 
 // Définir le chemin uploads
 define('UPLOAD_DIR', dirname(dirname(__DIR__)) . '/uploads/');

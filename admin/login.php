@@ -25,10 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = 'Veuillez remplir tous les champs.';
     } else {
-        // Tentative de connexion avec vérification du mot de passe
-        if (login($email, $password)) {
+        // Tentative de connexion
+        $result = login($email, $password);
+
+        if ($result['success']) {
             header('Location: dashboard.php');
             exit;
+        } elseif ($result['blocked']) {
+            $error = 'Trop de tentatives. Réessayez dans 15 minutes.';
         } else {
             $error = 'Email ou mot de passe incorrect.';
         }
