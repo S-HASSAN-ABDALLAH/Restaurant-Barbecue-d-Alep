@@ -42,7 +42,7 @@ SEO : 100/100 | Accessibilité : 92/100 | Performance : 92/100 | Best Practices 
 
 ### Panel Admin
 - Authentification sécurisée (bcrypt + protection brute-force)
-- CRUD complet : plats, catégories, frites, offres spéciales
+- CRUD complet : plats, catégories, offres spéciales
 - Upload images sécurisé — 4 couches de validation (taille, MIME via finfo, extension, nom unique)
 - Dashboard avec statistiques
 
