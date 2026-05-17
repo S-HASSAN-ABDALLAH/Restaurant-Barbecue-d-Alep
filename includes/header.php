@@ -3,7 +3,6 @@ require_once __DIR__ . '/../config/database.php';
 $stmtCat = $pdo->query("SELECT * FROM categories ORDER BY display_order ASC");
 $headerCategories = $stmtCat->fetchAll();
 ?>
-<!-- test -->
 <header>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -30,7 +29,6 @@ $headerCategories = $stmtCat->fetchAll();
         Menu
     </a>
     <ul class="dropdown-menu">
-        <!-- خيار عام لرؤية كل شيء -->
         <li>
             <a class="dropdown-item" href="menu.php">
                 Explorer tout le menu
@@ -38,7 +36,6 @@ $headerCategories = $stmtCat->fetchAll();
         </li>
         <li><hr class="dropdown-divider"></li>
         
-        <!-- الفئات المحددة -->
         <?php foreach ($headerCategories as $cat): ?>
         <li>
             <a class="dropdown-item" href="menu.php#category-<?= $cat['id'] ?>">

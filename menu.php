@@ -4,9 +4,6 @@ require_once 'config/database.php';
 $stmt = $pdo->query("SELECT * FROM categories ORDER BY display_order ASC");
 $categories = $stmt->fetchAll();
 
-// Récupérer toutes les plats
-$stmt = $pdo->query("SELECT * FROM items ORDER BY id_categorie, display_order ASC");
-$allItems = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -56,8 +53,14 @@ $allItems = $stmt->fetchAll();
 <?php include "includes/header.php"; ?>
 
 <!-- ========================================
+     MAIN CONTENT
+     ======================================== -->
+<main>
+
+<!-- ========================================
      HERO SECTION - Section d'accueil
      ======================================== -->
+
 <section class="hero-menu">
     <div class="container">
         <div class="row">
@@ -235,6 +238,12 @@ $allItems = $stmt->fetchAll();
     <?php endif; ?>
 
 <?php endforeach; ?>
+
+</main>
+<!-- ========================================
+     FIN MAIN CONTENT
+     ======================================== -->
+
 <!-- ========================================
      FOOTER
      ======================================== -->
@@ -258,51 +267,7 @@ window.addEventListener('scroll', function() {
 </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-// Smooth scroll to section after page load
-(function() {
-    if (window.location.hash) {
-        const hash = window.location.hash;
-        
-        history.replaceState(null, null, window.location.pathname);
-        
-        window.scrollTo(0, 0);
-        
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const target = document.querySelector(hash);
-                if (target) {
-                    const targetPosition = target.offsetTop;
-                    const startPosition = window.pageYOffset;
-                    const distance = targetPosition - startPosition;
-                    const duration = 3000;
-                    let start = null;
-                    
-                    function animation(currentTime) {
-                        if (start === null) start = currentTime;
-                        const timeElapsed = currentTime - start;
-                        const progress = Math.min(timeElapsed / duration, 1);
-                        
-                        const ease = progress < 0.5 
-                            ? 2 * progress * progress 
-                            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                        
-                        window.scrollTo(0, startPosition + distance * ease);
-                        
-                        if (timeElapsed < duration) {
-                            requestAnimationFrame(animation);
-                        } else {
-                            history.replaceState(null, null, hash);
-                        }
-                    }
-                    
-                    requestAnimationFrame(animation);
-                }
-            }, 2000);
-        });
-    }
-})();
-</script>
+   
 
 </body>
 </html>
